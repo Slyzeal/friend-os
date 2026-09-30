@@ -1,0 +1,10 @@
+{
+  "name": "friend-os",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/serve.mjs",
+    "check": "node --check dist/app.js && node --check dist/workspace.js && node --test tests/workspace.test.mjs"
+  }
+}

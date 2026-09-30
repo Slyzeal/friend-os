@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#101310"><meta name="description" content="FRIEND.OS — a workspace for your Rare Friend. Explore the simulated inventory and workshop preview.">
+  <title>FRIEND.OS · Workspace preview</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23c3f76b'/%3E%3Ctext x='6' y='23' font-family='monospace' font-weight='bold' font-size='23' fill='%23101310'%3EF%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css"><script src="app.js" type="module"></script>
+</head>
+<body>
+<header class="topbar"><a class="brand" href="./" aria-label="FRIEND.OS home"><span class="brand-mark">F<span>•</span></span> FRIEND<span class="brand-light">.OS</span></a><div class="top-meta"><span class="version">WORKSPACE PREVIEW / 0.1</span><span class="network">Robinhood</span></div><button id="wallet-button" class="wallet-button">Connect wallet</button></header>
+<main>
+  <section class="intro"><div><p class="eyebrow">A LITTLE SPACE FOR YOUR FRIEND</p><h1>Make yourself<br><span>at home.</span></h1></div><p class="intro-note">One Friend. A shared inventory.<br>A whole desk of possibilities.</p></section>
+  <div class="workspace-grid">
+    <section class="identity panel" aria-labelledby="identity-title"><div class="panel-heading"><h2 id="identity-title">Your Friend</h2><span class="label">PREVIEW</span></div><div class="identity-art"><div class="identity-monogram" aria-hidden="true">RF<span>?</span></div><p>Room for your Rare Friend</p><span>Original artwork loads with verified identity.</span></div><div class="identity-bottom"><h3>Meet your next main character.</h3><p>Live NFT discovery is not connected yet. Explore the workspace while we build it.</p><button class="secondary wide" data-open="profile">View profile</button></div></section>
+    <section class="desktop panel" aria-labelledby="desktop-title"><div class="panel-heading"><h2 id="desktop-title">Your desktop</h2><span class="muted">4 apps</span></div><div class="desktop-title"><span class="small-line">PICK SOMETHING TO OPEN</span><h3>A good day to<br>make something.</h3></div><div class="apps">
+      <button class="app-tile" data-open="inventory"><span class="app-icon lime"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 7 8-4 8 4-8 4-8-4Zm0 0v10l8 4 8-4V7M12 11v10"/></svg></span><span>Inventory</span><small>Your collection</small></button>
+      <button class="app-tile" data-open="workshop"><span class="app-icon orange"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.3 6.7L21 12l-6.7 2.3L12 21l-2.3-6.7L3 12l6.7-2.3L12 3Z"/></svg></span><span>Workshop</span><small>Play & unlock</small></button>
+      <button class="app-tile" data-open="wallet"><span class="app-icon blue"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16v13H4V7Zm0 0V4h13v3M16 11h4v5h-4v-5Z"/></svg></span><span>Wallet</span><small>Preview credits</small></button>
+      <button class="app-tile" data-open="activity"><span class="app-icon lilac"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h4l3-7 4 14 3-7h4"/></svg></span><span>Activity</span><small>What you've done</small></button>
+    </div><div class="desktop-footer"><span class="dot"></span><span>Purchases, credits and items are simulated.</span></div></section>
+    <aside class="side-column"><section class="credit-card"><div class="panel-heading"><h2>Workspace credits</h2><span class="label dark-label">SIMULATED</span></div><p class="balance"><span id="credit-count">50</span><small>RF</small></p><p>Try the economy.<br>Keep your real funds untouched.</p><button data-open="wallet">Open wallet <span aria-hidden="true">+</span></button></section><section class="panel shortcut"><span class="eyebrow">TODAY'S LITTLE CHALLENGE</span><h3>Catch the signal.</h3><p>Rebuild a three-symbol sequence to unlock your first collectible.</p><button class="secondary wide" data-open="workshop">Open Workshop</button><div class="reward-tag"><span aria-hidden="true">✦</span> Orbit Badge · simulated</div></section></aside>
+  </div>
+  <section class="bottom-grid"><div class="panel recent"><div class="panel-heading"><h2>On your shelf</h2><button class="text-button" data-open="inventory">Open inventory</button></div><div id="shelf" class="shelf"></div></div><div class="panel build-note"><span class="eyebrow">BUILT TO GROW WITH FRIENDS</span><h3>Your identity.<br>More ways to play.</h3><p>Future apps can share a selected Friend and inventory through a common interface. This preview demonstrates sharing inside FRIEND.OS.</p><a href="https://github.com/Slyzeal/friend-os" target="_blank" rel="noopener noreferrer">Explore the source <span aria-hidden="true">↗</span></a></div></section>
+</main>
+<footer><span>FRIEND.OS <span class="muted">/ An independent Rare Friends project</span></span><span>Session-only preview <button class="text-button" id="reset-button">Reset workspace</button></span></footer>
+<dialog id="app-dialog" aria-labelledby="app-title"><div class="window-heading"><div><span class="window-mark" aria-hidden="true">F.</span><h2 id="app-title"></h2></div><button class="close-button" id="close-app" aria-label="Close app">×</button></div><div id="app-body"></div></dialog>
+<dialog id="confirm-dialog" aria-labelledby="confirm-title"><div class="confirm-content"><p class="eyebrow">SIMULATED PURCHASE</p><h2 id="confirm-title">Craft a Signal Pin?</h2><p>Spend 2 preview RF credits to add one Signal Pin to this workspace. No wallet transaction or token approval is involved.</p><div class="confirm-actions"><button class="secondary" id="cancel-craft">Keep browsing</button><button class="primary" id="confirm-craft">Craft for 2 preview RF</button></div></div></dialog>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
