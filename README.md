@@ -62,3 +62,9 @@ Official sources: https://rarefriends.com/vibeathon and https://github.com/spoke
 ## Assets
 
 Rare Friends Generations canonical onchain sprite frames are read from the official SDK manifest. They are not invented or substituted in the production app. SDK source/artwork permissions are retained in `vendor/friendsdk/NOTICE.md` and `LICENSE`. The garden uses canvas geometry for gameplay terrain, collectibles and hazards. UI symbols and effects are first-party. Tests use synthetic sprite fixtures solely in the automated harness. Fonts are system fonts; no external font service is required.
+
+### Wallet history compatibility
+
+Automatic discovery tries the connected wallet RPC, then retries account-filtered Transfer history using the canonical Robinhood public RPC. If both fail, enter your Generations NFT token ID and select Verify this Friend. Direct lookup checks fresh ownerOf, generation and the canonical token-bound account; it does not trust the entered ID as proof. Generation 0 NFTs remain excluded from real identity mode. The wallet-free demo remains available.
+
+Regression: `node tests/discovery-browser.mjs` exercises rejected wallet logs, public history fallback, direct lookup with both history providers failing, rejection of another owner and generation 0, plus selection and gameplay at desktop and mobile widths. RPC responses in this test are fixtures.
