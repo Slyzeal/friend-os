@@ -1,75 +1,60 @@
-# FRIEND.OS
+# FRIEND.OS v0.2
 
-A desktop workspace for your Rare Friend: inventory and experiences in one place.
+A home for your verified Rare Friend, with two playable games and a shared equipment inventory. This is a custom web-tool host with native games, not a third-party app marketplace or onchain item protocol.
 
-## Preview v0.1
+## Run
 
-This is a **non-SDK web-tool prototype**, not a live Rare Friends integration. It includes a responsive desktop, app windows, a deterministic Workshop puzzle, shared session inventory, simulated crafting and activity history.
-
-### Run locally
-
-Requires Node.js 22 or later. No dependency installation is required.
+Requires Node.js 22+ and npm. Browser checks use Linux or WSL and the npm-packaged Chromium test runtime.
 
 ```sh
+npm ci
+npm run build
 npm run dev
 ```
 
-Open `http://localhost:4173`. On mobile, use a browser connected to the same development host or the hosted preview. `dist/` can be served by any HTTPS static host; keep its files together. The entry point is `dist/index.html`.
+Open http://localhost:4173. Serve the complete `dist/` directory on any HTTPS static host. `preview.html` is also a bundled single-file copy; the hosted HTTPS version is preferred for wallet access.
+
+## Play
+
+1. Open the HTTPS preview in a wallet-enabled browser. Connect a wallet on Robinhood mainnet (4663).
+2. Select a hardwired Rare Friends Generations NFT, generation 1 or higher. The app discovers only this account’s incoming/outgoing transfers and freshly verifies ownership. It does not scan the collection or offer a guest identity bypass.
+3. Play Relic Run: collect six relics, avoid moving wisps, and reach the bottom-right portal in 90 seconds. Use arrows/WASD, on-screen movement buttons, or tap a destination. Pause or Escape pauses the expedition; blur/hidden tabs also pause it. Win earns 8 simulated RF and 30 XP, an Explorer Badge on the first win, and harder subsequent expeditions up to level 9. Loss costs nothing.
+4. Play Memory Grove: study twelve cards, then match six pairs within 60 seconds. Win earns 5 simulated RF and 20 XP. No random payout probabilities; the card arrangement is shuffled, and rewards are determined by completing the challenge.
+5. Craft in Workshop and equip in Inventory. Trail Shoes cost 12 simulated RF and increase Relic Run movement speed by 20%. Garden Shield costs 18 and adds one heart. Memory Lantern costs 10 and extends the memory study period from three to five seconds. One item may be equipped at a time. Purchases require visible confirmation and cannot repeat or overspend.
+6. View actual canonical NFT-wallet RF balance in Friend Wallet. It is displayed separately from simulated credits. View local activity, export/import progress, or reset it in Settings.
+
+## What is real and simulated
+
+Real, read-only: wallet account/network, current NFT ownership and generation, canonical NFT-wallet address, canonical sprite family and original onchain frames, and the Friend wallet’s RF balance.
+
+Simulated: 50 starting credits, game rewards, XP, equipment, inventory and purchases. No RF funding, token approvals, signatures, deployment, transfer or real-money transaction methods are implemented.
+
+Progress is saved locally by chain, canonical NFT wallet and token ID. It survives reloads in the same browser. Export/import moves a backup manually between devices; only a matching Friend backup is accepted. It is editable browser data, not secure onchain achievement evidence, a cross-device cloud save, or an NFT asset. Imported data is validated. Saved items stay in the workspace and affect its compatible built-in games.
+
+There are no third-party app integrations, trading, swaps, live rewards or wearable NFTs in this release. See `SDK.md` for the small read-only host interface and its limits.
+
+## Protocol integration
+
+Three unmodified FriendSDK v0.1.4 modules are vendored under `vendor/friendsdk`: account-filtered discovery, fresh eligibility and canonical sprite reads. Source attribution and Apache-2.0 license are included. The runtime uses viem and the connected wallet’s read transport; it never receives a private key. Identity is invalidated on account/network changes and freshly verified before each game start/resume.
+
+This custom app does not use FriendSDK GameHost, its opaque sandbox or chance-game economy. Only first-party built-in code executes. Untrusted community scripts and cross-origin app installation are not enabled.
+
+## Checks
 
 ```sh
 npm run check
+npm run build
+npm run test:browser
 ```
 
-### Try the main interaction
+Five core tests cover spending/deduplication, shared game rewards, invalid backups, equipment/collision and win/loss conditions. Browser flows run at 1360px and 390px and exercise the normal gate through a mocked EIP-1193 provider, craft/equip, movement/pause, Memory Grove completion, save/reload and account-change invalidation. The fixtures are injected by the test harness only; no mock provider or test bypass exists in delivered builds. Browser tests capture screenshots under ignored `artifacts/`.
 
-1. Open Workshop.
-2. Repeat the displayed sequence: star, diamond, circle. Use buttons or keys 2, 3, 1.
-3. Open Inventory to find your Orbit Badge.
-4. Optionally choose Craft a pin and confirm the **simulated** 2 RF cost.
-5. Return to Inventory or Activity to see the same session state.
+Actual owner-wallet play remains unverified in this environment. RPC reads can fail or require a wallet RPC supporting complete owner-filtered history; failures never enable play. Eligible owners should confirm the hosted connection, artwork and read-only balance with their real wallet before submission. WalletConnect/native deep links are not implemented; use an injected wallet extension or wallet browser. Audio starts muted and may be enabled in Settings. CSS motion respects reduced-motion; essential hazards remain part of the game.
 
-Apps close with the × button or Escape. Dialogs use native keyboard focus handling. All core controls support touch. Motion respects reduced-motion preferences; there is no audio.
+## Official Vibeathon
 
-### Economy and identity
-
-- Start with 50 **simulated RF credits**, not an actual token balance.
-- The puzzle has no cost or randomness and awards one simulated Orbit Badge per session.
-- A Signal Pin costs exactly 2 simulated RF. Pins accumulate; crafting is blocked below 2 credits.
-- Items cannot be sold, redeemed or transferred. No live purchases, rewards, approvals, signatures or transactions are implemented.
-- Reloading resets session state. Reset workspace clears only the simulated credits, items and history.
-- Wallet connection is optional. It requests account access and reads the network through an injected EIP-1193 browser wallet. It does not verify NFT ownership, load balances, switch networks, or send transactions. Robinhood mainnet is chain 4663 (`0x1237`).
-- No mock Rare Friend is assigned. Profile shows that verified identity and original NFT artwork are pending.
-
-## Verified Vibeathon rules
-
-Reviewed September 30, 2026 against the [official submission README](https://github.com/spokesz/rarefriends-vibeathon):
-
-- Tools can use a non-SDK interface, explain the Rare Friends/$RAREFRIENDS connection and demonstrate one working interaction.
-- Purchases and rewards must be simulated and labeled for the MVP.
-- Submission requires source, setup instructions, a working demo link, wallet/network requirements, usage instructions, checks and limitations.
-- Submit a PR adding `submissions/friend-os/README.md` by September 30, 2026. Exact cutoff time/timezone are TBA in the official README.
-- Preserve original Rare Friend artwork when used.
-- Integrated SDK games must use SDK identity selection and ownership checks for a hardwired Generations NFT, generation ≥1, on Robinhood mainnet. This workspace preview is not an SDK game.
-
-The Vibeathon README references SDK v0.1.2; the current [FriendSDK README](https://github.com/spokesz/friendsdk) identifies v0.1.4. A future integration must pin and document its actual version.
-
-## Architecture
-
-`dist/workspace.js` provides a small in-memory store shared by Workshop, Inventory, Wallet and Activity. Its snapshot/subscription interface demonstrates sharing **inside this app**; it is not an interoperable onchain inventory standard. UI and wallet connection are in `dist/app.js`.
-
-Optional WebMCP tools expose reading preview state and opening an app when supported by the browser. They do not connect wallets or execute purchases. Browser support is optional.
-
-## Checks and known limitations
-
-- JavaScript syntax checks and focused workspace tests cover duplicate prevention, exact crafting costs, insufficient credits, reset and copied snapshots.
-- Real-wallet connection and NFT ownership are not end-to-end verified.
-- Canonical NFT-wallet lookup, actual RF balances, generations, traits, rewards, durable saves, third-party apps and cross-game assets are not implemented.
-- No protocol contracts are deployed. No real-money activity is enabled.
-- Optional WebMCP validation requires a supported browser; unsupported browsers ignore it.
-- The prototype has not been submitted to the Vibeathon. A complete live identity integration and public working demo are needed before claiming a finished Rare Friends product.
+Official sources: https://rarefriends.com/vibeathon and https://github.com/spokesz/rarefriends-vibeathon . The submission README allows non-SDK tools and requires a working demo and clearly simulated MVP economy. Advertised deadline: September 30, 2026; exact cutoff/timezone TBA in the official README last reviewed. This project has not been submitted, and no claim of acceptance or winning is made.
 
 ## Assets
 
-No Rare Friends NFT artwork is copied or invented. The RF text placeholder explicitly marks missing identity. UI symbols and geometric line icons are authored for this project. DM Sans and Space Grotesk are loaded from Google Fonts under their respective open font licenses; system sans-serif is the fallback.
-
-Official references: [Vibeathon](https://rarefriends.com/vibeathon), [submission rules](https://github.com/spokesz/rarefriends-vibeathon), [FriendSDK](https://github.com/spokesz/friendsdk).
+Rare Friends Generations canonical onchain sprite frames are read from the official SDK manifest. They are not invented or substituted in the production app. SDK source/artwork permissions are retained in `vendor/friendsdk/NOTICE.md` and `LICENSE`. The garden uses canvas geometry for gameplay terrain, collectibles and hazards. UI symbols and effects are first-party. Tests use synthetic sprite fixtures solely in the automated harness. Fonts are system fonts; no external font service is required.

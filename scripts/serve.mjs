@@ -4,7 +4,7 @@ import { resolve, sep, extname } from 'node:path';
 const root = resolve('dist');
 const port = Number(process.env.PORT || 4173);
 const types = { '.html':'text/html; charset=utf-8', '.css':'text/css; charset=utf-8', '.js':'text/javascript; charset=utf-8' };
-createServer(async (req, res) => {
+export const server = createServer(async (req, res) => {
   try {
     const path = decodeURIComponent(new URL(req.url, 'http://localhost').pathname);
     const file = resolve(root, '.' + (path === '/' ? '/index.html' : path));

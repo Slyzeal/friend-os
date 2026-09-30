@@ -1,0 +1,1 @@
+FriendSDK v0.1.4 read-only identity, discovery and canonical artwork modules. Source: https://github.com/spokesz/friendsdk at ca3bf183b809ecf22d87c63d88ce03969a3f8da2. Original files retained unchanged. The custom workspace uses these exported read APIs; it does not use the GameHost sandbox or chance-game economy.
