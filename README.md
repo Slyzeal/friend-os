@@ -68,3 +68,11 @@ Rare Friends Generations canonical onchain sprite frames are read from the offic
 Automatic discovery tries the connected wallet RPC, then retries account-filtered Transfer history using the canonical Robinhood public RPC. If both fail, enter your Generations NFT token ID and select Verify this Friend. Direct lookup checks fresh ownerOf, generation and the canonical token-bound account; it does not trust the entered ID as proof. Generation 0 NFTs remain excluded from real identity mode. The wallet-free demo remains available.
 
 Regression: `node tests/discovery-browser.mjs` exercises rejected wallet logs, public history fallback, direct lookup with both history providers failing, rejection of another owner and generation 0, plus selection and gameplay at desktop and mobile widths. RPC responses in this test are fixtures.
+
+### Progressive difficulty and inventory
+
+Both games have nine stages. Relic Run advances after each win: its timer falls from 90 to 50 seconds, wisps rise from four to eight, patrols get faster and wider, and hit protection shortens. Memory Grove advances independently after each win: six to twelve pairs, 60 to 40 seconds, study time from 3 to 1.2 seconds, and wrong pairs cost 1 second from stage 4 and 3 seconds from stage 7. Stage 9 repeats at maximum difficulty. Losing repeats the current stage.
+
+Equip one utility item from Inventory: Trail Shoes increase Relic Run speed, Garden Shield adds one heart, and Memory Lantern adds two study seconds at every Memory Grove stage. Explorer Badge is an achievement and cannot be equipped. All purchases and rewards use simulated credits. Existing browser saves are compatible.
+
+`node tests/difficulty-browser.mjs` checks stage 9 settings, equipment, 24-card mobile layout and wrong-pair penalties; core tests check monotonic scaling across all nine stages.
