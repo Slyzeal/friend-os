@@ -14,7 +14,11 @@ npm run dev
 
 Open http://localhost:4173. Serve the complete `dist/` directory on any HTTPS static host. `preview.html` is also a bundled single-file copy; the hosted HTTPS version is preferred for wallet access.
 
-## Play
+## Wallet-free interactive demo
+
+The preview opens directly in a clearly labelled demo profile with a sample geometric avatar. Both games, equipment, crafting, saves and backups work without a wallet. All identity and wallet balance data in this mode is simulated. Demo progress is stored separately from real Friend progress. This walkthrough is not an eligible NFT session or a Vibeathon identity-verified game submission. Choose **Use my real Friend** for the verified flow.
+
+## Play with an actual Friend
 
 1. Open the HTTPS preview in a wallet-enabled browser. Connect a wallet on Robinhood mainnet (4663).
 2. Select a hardwired Rare Friends Generations NFT, generation 1 or higher. The app discovers only this account’s incoming/outgoing transfers and freshly verifies ownership. It does not scan the collection or offer a guest identity bypass.
