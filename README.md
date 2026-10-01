@@ -76,3 +76,11 @@ Both games have nine stages. Relic Run advances after each win: its timer falls 
 Equip one utility item from Inventory: Trail Shoes increase Relic Run speed, Garden Shield adds one heart, and Memory Lantern adds two study seconds at every Memory Grove stage. Explorer Badge is an achievement and cannot be equipped. All purchases and rewards use simulated credits. Existing browser saves are compatible.
 
 `node tests/difficulty-browser.mjs` checks stage 9 settings, equipment, 24-card mobile layout and wrong-pair penalties; core tests check monotonic scaling across all nine stages.
+
+### GitHub Pages hosting
+
+The `docs/` folder contains the ready-to-host static app. Enable it in repository Settings → Pages: choose **Deploy from a branch**, **main**, **/docs**, then Save. GitHub will publish the project at `https://slyzeal.github.io/friend-os/`. The app uses relative asset URLs so it works under the repository path. No server, secrets or ChatGPT subscription are required for this build.
+
+`npm run build` refreshes both `dist/` and `docs/`; commit the updated `docs/` files to publish future changes. The `.nojekyll` marker skips Jekyll processing.
+
+Browser saves are specific to the website address. Export progress from the old preview and import it on the new host to move a save; demo and real Friend saves remain separate.
